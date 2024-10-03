@@ -128,3 +128,8 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 Route::resource('categories', CategoryController::class);
 Route::post('/categories/{category}/add-product', [CategoryController::class, 'addProduct'])->name('categories.addProduct');
 Route::delete('/categories/{category}/remove-product/{product}', [CategoryController::class, 'removeProduct'])->name('categories.removeProduct');
+
+
+Route::get('/check-session-driver', function () {
+    return response()->json(['session_driver' => env('SESSION_DRIVER')]);
+});
