@@ -14,4 +14,14 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+
+    public function handle($request, Closure $next)
+{
+    if ($request->isMethod('post') && !$request->session()->token()) {
+        \Log::info('CSRF Token not found in session.');
+    }
+
+    return parent::handle($request, $next);
+}
+
 }
