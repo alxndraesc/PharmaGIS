@@ -29,7 +29,7 @@ use App\Http\Controllers\Auth\VerificationController;
 */
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
 Route::get('/registeras', function () {
     return view('auth.choose');
