@@ -39,9 +39,9 @@ Route::get('/register/customer', [RegisteredCustomerController::class, 'create']
 Route::post('/register/customer', [RegisteredCustomerController::class, 'store']);
 
 Route::get('/pharmacy/register/step1', [RegisteredPharmacyController::class, 'showStep1Form'])->name('pharmacy.register.step1');
-Route::post('/pharmacy/register/step1', [RegisteredPharmacyController::class, 'registerStep1'])->name('pharmacy.register.step1');
+Route::post('/pharmacy/register/step1', [RegisteredPharmacyController::class, 'registerStep1'])->name('pharmacy.register.step1.submit');
 Route::get('/pharmacy/register/step2', [RegisteredPharmacyController::class, 'showStep2Form'])->name('pharmacy.register.step2');
-Route::post('/pharmacy/register/step2', [RegisteredPharmacyController::class, 'registerStep2'])->name('pharmacy.register.step2'); 
+Route::post('/pharmacy/register/step2', [RegisteredPharmacyController::class, 'registerStep2'])->name('pharmacy.register.step2.submit');
 Route::get('/pharmacy/upload-documents', [RegisteredPharmacyController::class, 'showUploadDocumentsForm'])->name('pharmacy.upload_documents');
 Route::post('/pharmacy/upload-documents', [RegisteredPharmacyController::class, 'uploadDocuments'])->name('pharmacy.upload_documents.submit');
 Route::get('/pharmacy/resubmit-documents', [PharmacyController::class, 'resubmitDocument'])->name('pharmacy.resubmitDocuments');
@@ -74,8 +74,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::get('/admin/locations', [AdminController::class, 'locationManagement'])->name('admin.locations');
 });
-
-Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'role:pharmacy'])->group(function () {
     Route::get('/pharmacy/upload-documents', [PharmacyController::class, 'handleUploadDocuments'])->name('pharmacy.upload_documents_handler');
