@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainProductController;
 use App\Http\Controllers\PharmacyController;
@@ -27,9 +28,9 @@ use App\Http\Controllers\Auth\VerificationController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
 Route::get('/registeras', function () {
     return view('auth.choose');
 })->name('registeras');

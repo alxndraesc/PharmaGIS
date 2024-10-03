@@ -19,8 +19,12 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [ env('APP_ENV') === 'production' ? 'https://pharmagis-production.up.railway.app' : 'http://localhost:8000'        
-    ],
+    'allowed_origins' => [
+    env('APP_ENV') === 'production' 
+        ? 'https://pharmagis-production.up.railway.app' 
+        : 'http://localhost:8000',
+    'https://pharmagis-production.up.railway.app'
+],
 
     'allowed_origins_patterns' => [],
 
