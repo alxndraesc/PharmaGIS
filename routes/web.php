@@ -122,14 +122,9 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::post('/customer/search', [CustomerController::class, 'search'])->name('customer.search');
     Route::get('/customer/edit', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::post('/customer/update', [CustomerController::class, 'update'])->name('customer.update');
-    Route::post('/customer/change-password', [CustomerAccountController::class, 'changePassword'])->name('customer.changePassword');
+    Route::post('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customer.changePassword');
     Route::post('/customer/account/delete', [CustomerController::class, 'deleteAccount'])->name('customer.account.delete');
 });
 Route::resource('categories', CategoryController::class);
 Route::post('/categories/{category}/add-product', [CategoryController::class, 'addProduct'])->name('categories.addProduct');
 Route::delete('/categories/{category}/remove-product/{product}', [CategoryController::class, 'removeProduct'])->name('categories.removeProduct');
-
-
-Route::get('/check-session-driver', function () {
-    return response()->json(['session_driver' => env('SESSION_DRIVER')]);
-});
