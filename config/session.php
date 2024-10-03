@@ -18,7 +18,11 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    'driver' => env('SESSION_DRIVER', 'redis'),
+        'redis' => [
+        'connection' => 'default',
+        'table' => 'sessions',
+    ],
 
     /*
     |--------------------------------------------------------------------------
