@@ -94,7 +94,8 @@ class LoginController extends Controller
     {
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:50'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^[a-zA-Z0-9]*$/'], // No special characters
+            'password' => ['required', 'string', 'min:8', 'regex:/^[a-zA-Z0-9]*$/'], 
+            '_token' => ['required', 'string'],
         ]);
     }
 
