@@ -128,6 +128,7 @@ Route::resource('categories', CategoryController::class);
 Route::post('/categories/{category}/add-product', [CategoryController::class, 'addProduct'])->name('categories.addProduct');
 Route::delete('/categories/{category}/remove-product/{product}', [CategoryController::class, 'removeProduct'])->name('categories.removeProduct');
 
-Route::get('/test-backend', function() {
-    return 'Backend is working!';
+Route::get('/test-session', function () {
+    session(['test_key' => 'test_value']);
+    return session('test_key'); // Should return 'test_value'
 });
