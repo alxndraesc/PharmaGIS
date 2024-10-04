@@ -18,7 +18,11 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => env('SESSION_DRIVER', 'redis'),
+        'redis' => [
+        'connection' => 'default',
+        'table' => 'sessions',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -195,7 +199,7 @@ return [
     |
     */
 
-    'same_site' => 'lax',
+    'same_site' => 'none',
 
     /*
     |--------------------------------------------------------------------------
