@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CookieController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainProductController;
@@ -34,6 +35,10 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/registeras', function () {
     return view('auth.choose');
 })->name('registeras');
+
+Route::get('/set-cookie', [CookieController::class, 'setCookie']);
+Route::get('/get-cookie', [CookieController::class, 'getCookie']);
+Route::get('/delete-cookie', [CookieController::class, 'deleteCookie']);
 
 Route::get('/register/customer', [RegisteredCustomerController::class, 'create'])->name('register.customer');
 Route::post('/register/customer', [RegisteredCustomerController::class, 'store']);
@@ -127,8 +132,3 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 Route::resource('categories', CategoryController::class);
 Route::post('/categories/{category}/add-product', [CategoryController::class, 'addProduct'])->name('categories.addProduct');
 Route::delete('/categories/{category}/remove-product/{product}', [CategoryController::class, 'removeProduct'])->name('categories.removeProduct');
-
-Route::get('/test-session', function () {
-    session(['test_key' => 'test_value']);
-    return session('test_key'); // Should return 'test_value'
-});
