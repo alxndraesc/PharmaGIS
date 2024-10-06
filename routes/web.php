@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CookieController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainProductController;
 use App\Http\Controllers\PharmacyController;
@@ -31,6 +32,8 @@ use App\Http\Controllers\Auth\VerificationController;
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Route::get('/registeras', function () {
     return view('auth.choose');
@@ -52,13 +55,14 @@ Route::post('/pharmacy/upload-documents', [RegisteredPharmacyController::class, 
 Route::get('/pharmacy/resubmit-documents', [PharmacyController::class, 'resubmitDocument'])->name('pharmacy.resubmitDocuments');
 Route::post('/pharmacy/update-documents', [PharmacyController::class, 'updateDocuments'])->name('pharmacy.updateDocuments');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify');
-})->name('verification.notice');
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-     ->name('verification.verify')
-     ->middleware(['signed']);
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/home', [HomeController::class, 'index']);
 

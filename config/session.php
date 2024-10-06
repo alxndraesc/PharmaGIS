@@ -19,11 +19,6 @@ return [
     */
 
     'driver' => env('SESSION_DRIVER', 'redis'),
-        'redis' => [
-        'connection' => 'default',
-        'table' => 'sessions',
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Session Lifetime
@@ -171,7 +166,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', true),
+    'secure' => env('SESSION_SECURE_COOKIE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -199,7 +194,7 @@ return [
     |
     */
 
-    'same_site' => 'none',
+    'same_site' => 'lax',
 
     /*
     |--------------------------------------------------------------------------
@@ -212,6 +207,6 @@ return [
     |
     */
 
-    'partitioned' => true,
+    'partitioned' => false,
 
 ];
