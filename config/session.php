@@ -126,8 +126,7 @@ return [
     */
 
     'cookie' => env(
-        'SESSION_COOKIE', 'laravel_session'
-    ),
+        'SESSION_COOKIE', 'laravel_session'),
 
     /*
     |--------------------------------------------------------------------------
@@ -153,7 +152,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN'),
+    'domain' => env('SESSION_DOMAIN', 'pharmagis-production.up.railway.app'),
 
     /*
     |--------------------------------------------------------------------------
