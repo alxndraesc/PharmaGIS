@@ -48,6 +48,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
 {
+    // Set cookies for session and CSRF token
+    $cookieSession = cookie('laravel_session', session()->getId(), 120, null, null, true, true);
+    $cookieXSRF = cookie('XSRF-TOKEN', csrf_token(), 120, null, null, true, true);
+
     if ($user->role === 'pharmacy') {
         $pharmacy = $user->pharmacy;
 
@@ -55,34 +59,33 @@ class LoginController extends Controller
         if (!$pharmacy->is_approved) {
             // Check if documents are uploaded
             if ($pharmacy->document1_path && $pharmacy->document2_path && $pharmacy->document3_path) {
-                
                 // Check if the pharmacy is rejected
                 if ($pharmacy->is_rejected) {
-                    return redirect()->route('pharmacy.resubmitDocuments'); // Redirect to resubmit documents
+                    return redirect()->route('pharmacy.resubmitDocuments')->withCookies([$cookieSession, $cookieXSRF]);
                 }
-
                 // If not approved and not rejected, show not approved
-                return redirect()->route('pharmacy.not-approved'); // Redirect to not approved
+                return redirect()->route('pharmacy.not-approved')->withCookies([$cookieSession, $cookieXSRF]);
             } else {
-                return redirect()->route('pharmacy.upload_documents'); // Redirect to upload documents if not uploaded
+                return redirect()->route('pharmacy.upload_documents')->withCookies([$cookieSession, $cookieXSRF]);
             }
         }
 
         // Check if the user has selected a sub-role
         if (!$pharmacy->sub_role) {
-            return redirect()->route('pharmacy.selectRole'); // Redirect to the sub-role selection page
+            return redirect()->route('pharmacy.selectRole')->withCookies([$cookieSession, $cookieXSRF]);
         }
 
         // Redirect based on the selected sub-role
-        return redirect()->route('pharmacy.dashboard'); // Assuming both sub-roles redirect here
+        return redirect()->route('pharmacy.dashboard')->withCookies([$cookieSession, $cookieXSRF]);
     }
 
     if ($user->role === 'customer') {
-        return redirect()->route('customer.home'); // Adjust this as needed for customers
+        return redirect()->route('customer.home')->withCookies([$cookieSession, $cookieXSRF]);
     }
 
-    return redirect('/');
+    return redirect('/')->withCookies([$cookieSession, $cookieXSRF]);
 }
+
 
     /**
      * Validate login request data.
