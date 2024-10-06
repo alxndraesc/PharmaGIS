@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://pharmagis-production.up.railway.app',
+        'https://pharmagis-production.up.railway.app',
         'http://localhost:8000',
     ],
 
